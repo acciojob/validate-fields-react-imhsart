@@ -4,7 +4,7 @@ const LoginForm = () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [errorMess, setErrorMess] = useState('')
+  const [errorMess, setErrorMess] = useState(false)
 
  
   function handleSubmit(e){
@@ -13,16 +13,11 @@ const LoginForm = () => {
     if(username !== '' && password !== ''){
       setPassword('')
       setUsername('')
-      setErrorMess('')
+      setErrorMess(false)
       return
     }
-    if(username === ''){
-      setErrorMess('Please enter the valid username.')
-      return
-    }
-    if(password === ''){
-      setErrorMess('Please enter the valid password')
-      return
+    if(username === '' || password === ''){
+      setErrorMess(true)
     }
   }
 
@@ -33,7 +28,8 @@ const LoginForm = () => {
           <input placeholder="Enter password" value={password} onChange={e => setPassword(e.target.value)} type="password" id="password"></input>
           <button type="submit">Submit</button>
         </form>
-        <p style={{color:'red'}} id="errorMessage">{errorMess}</p>
+        {errorMess ? <p style={{color:'red'}} id="errorMessage">Both username and password are required.</p> : null}
+        
     </div>
   )
 }
